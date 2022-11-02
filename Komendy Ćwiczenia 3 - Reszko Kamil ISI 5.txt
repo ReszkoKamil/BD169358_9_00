@@ -31,5 +31,14 @@ INSERT INTO postac VALUES ('5','Stern','wiking','1950-04-09', '72');
 INSERT INTO postac VALUES ('6','Sfern','wiking','1950-04-10', '72');
 INSERT INTO postac VALUES ('7','Bjern','wiking','1950-06-10', '72');
 INSERT INTO postac VALUES ('8','Olaf','wiking','1950-08-10', '72');
-
+CREATE TABLE statek(nazwa_statku VARCHAR(50),rodzaj_statku ENUM("drakkar","lodka")DEFAULT"drakkar", data_wodowania DATE, max_ladownosc INT,PRIMARY KEY(nazwa_statku));
+INSERT INTO statek VALUES ("Naglfaar","1000-01-1", 200);
+INSERT INTO statek VALUES ("DzikaKuna","1939-11-7", 50);
+ALTER TABLE postac ADD funkcja VARCHAR(50);
+UPDATE postac SET funkcja="Kapitan" WHERE nazwa="Bjorn";
+ALTER TABLE postac ADD statek_nazwa VARCHAR(50);
+ALTER TABLE postac ADD FOREIGN KEY (statek_nazwa) REFERENCES statek(nazwa_statku);
+UPDATE postac SET statek_nazwa="Naglfaar" WHERE rodzaj="wiking" OR rodzaj="ptak";
+DELETE FROM izba WHERE nazwa_izby="spizarnia";
+DROP TABLE IF EXISTS izba;
 

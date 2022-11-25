@@ -22,3 +22,20 @@ ALTER TABLE postac DROP FOREIGN KEY postac_ibfk_1;
 INSERT INTO postac VALUES ('9','Gertruda Nieszczera','syrena','2000-07-10','22','NULL','NULL','987456321');
 
 ZADANIE3
+UPDATE Postac SET nazwa_statku="bojowy" WHERE nazwa LIKE '%a%';
+UPDATE statek set max_ladownosci = max_ladownosci * 0.7 WHERE data_wyladowania BETWEEN '1901_01_01' AND '2000_01_01';
+ALTER TABLE Postac ADD CHECK (YEAR(data_ur)>=1022);
+ALTER TABLE Postac MODIFY COLUMN rodzaj enum('wiking','tesciowa','ptak','syrena','waz');
+INSERT INTO Postac (id_postaci,nazwa, rodzaj, data_ur, wiek,pesel,nazwa_statku) VALUES ('10','Waz Loko','waz','2011-10-12','11','49503274581',NULL);
+CREATE TABLE marynarz(id_postaci int,nazwa varchar(40), rodzaj enum('wiking','tesciowa','ptak','syrena','waz'), data_ur DATE,wiek int unsigned, funkcja varchar(30), nazwa_statku varchar(30), pesel varchar(11), FOREIGN KEY(nazwa_statku) REFERENCES statek(nazwa_statku));
+INSERT INTO marynarz SELECT * FROM postac WHERE nazwa_statku IS NOT NULL;
+ALTER TABLE marynarz add primary key (id_postaci);
+
+Zadanie 4
+UPDATE marynarz set nazwa_statku=NULL;
+DELETE FROM marynarz WHERE id_postaci=4;
+TRUNCATE TABLE statek;
+DROP TABLE statek;
+CREATE TABLE zwierz(id int AUTO_INCREMENT,nazwa char(30), wiek int, primary key(id));
+INSERT INTO zwierz(id,nazwa,wiek) 
+SELEC id_postaci, nazwa, wiek FROM postac WHERE rodzaj='ptak' OR rodzaj='waz';

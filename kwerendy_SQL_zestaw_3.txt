@@ -1,0 +1,31 @@
+Zadanie 1
+CREATE TABLE kreatura LIKE wikingowie.kreatura;
+CREATE TABLE zasob LIKE wikingowie.zasob;
+CREATE TABLE ekwipunek LIKE wikingowie.ekwipunek;
+INSERT INTO kreatura SELECT * FROM wikingowie.kreatura;
+INSERT INTO zasob SELECT * FROM wikingowie.zasob;
+INSERT INTO ekwipunek SELECT * FROM wikingowie.ekwipunek;
+SELECT * FROM zasob;
+SELECT * FROM zasob WHERE rodzaj="jedzenie";
+SELECT idZasobu,ilosc from ekwipunek where idKreatury="1" OR "3" OR "5";
+
+Zadanie 2
+SELECT * FROM kreatura where rodzaj!="wiedzma" AND udzwig>50;
+SELECT * FROM zasob WHERE waga between 2 AND 5;
+SELECT * FROM kreatura WHERE nazwa LIKE "%or%" AND udzwig BETWEEN 30 AND 70;
+
+Zadanie 3
+SELECT * FROM zasob WHERE MONTH(dataPozyskania)=7 OR MONTH(dataPozyskania)=8;
+SELECT * FROM zasob WHERE rodzaj NOT NULL ORDER BY waga asc;
+SELECT * FROM kreatura ORDER BY dataUr asc limit 5;
+
+Zadanie 4
+SELECT rodzaj FROM zasob WHERE rodzaj IS NOT NULL GROUP BY rodzaj;
+SELECT concat(nazwa," ",rodzaj) AS "nazwa-rodzaj" FROM kreatura WHERE rodzaj LIKE "wi%";
+SELECT SUM(waga*ilosc) AS "waga calkowita",nazwa FROM zasob 
+WHERE dataPozyskania BETWEEN "2000-01-01" AND "2007-12-30" GROUP BY nazwa;
+
+Zadanie 5
+SELECT waga*0.7 AS "masa jedzenia", waga*0.3 AS "odpadki",nazwa FROM zasob;
+SELECT * FROM zasob WHERE rodzaj is NULL;
+SELECT * FROM zasob WHERE nazwa like "Ba%" OR nazwa like "%os" GROUP BY nazwa ORDER BY nazwa asc;
